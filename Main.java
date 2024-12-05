@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import ProjetoMecanico.CarrosCrud;
 import ProjetoMecanico.ServicosCrud;
 import ProjetoMecanico.FuncionariosCrud;
+import ProjetoMecanico.pages;
 
 
 public class Main {
@@ -34,12 +35,15 @@ public class Main {
         JButton button1 = new JButton("Carros");
         JButton button2 = new JButton("Servicos");
         JButton button3 = new JButton("Funcionarios");
+        JButton button4 = new JButton("Perfil");
         
         // Set button sizes
         button1.setPreferredSize(new Dimension(200, 50));
         button2.setPreferredSize(new Dimension(200, 50));
         button3.setPreferredSize(new Dimension(200, 50));
-        
+        button4.setPreferredSize(new Dimension(200, 50));
+
+
         // Add ActionListener to button1
         button1.addActionListener(new ActionListener() {
             @Override
@@ -62,12 +66,21 @@ public class Main {
             }
         });
 
+        button4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PerfilCrud(frame);
+            }
+        });
+
 
         panel.add(titleLabel);
+
         // Add buttons to the panel
         panel.add(button1);
         panel.add(button2);
         panel.add(button3);
+        panel.add(button4);
         
         // Add the panel to the frame
         frame.getContentPane().add(panel, BorderLayout.CENTER);
