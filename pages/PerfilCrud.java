@@ -1,10 +1,10 @@
+package pages;
 
 
 
 
 import java.sql.*;  
 import javax.swing.*;
-import java.awt.*;
 
 public class PerfilCrud {
     public PerfilCrud(JFrame parent) {
