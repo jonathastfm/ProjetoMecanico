@@ -1,4 +1,4 @@
-package ProjetoMecanico;
+
 
 import javax.swing.*;
 import java.awt.*;

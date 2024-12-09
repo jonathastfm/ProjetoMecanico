@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.project.sourcePaths": [
+			"lib/postgresql-42.7.2.jar",
+			"",
+			"ProjetoMecanico"
+		],
+		"java.debug.settings.onBuildFailureProceed": true
+	}
+}
