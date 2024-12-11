@@ -5,7 +5,7 @@ import pages.CarrosCrud;
 import pages.FuncionariosCrud;
 import pages.PerfilCrud;
 import pages.ServicosCrud;
-
+import pages.ShowPerfilCrud;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -38,16 +38,18 @@ public class Main {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         
         // Create buttons
-        JButton button1 = new JButton("Carros");
-        JButton button2 = new JButton("Servicos");
-        JButton button3 = new JButton("Funcionarios");
-        JButton button4 = new JButton("Perfil");
+        JButton button1 = new JButton("Registrar carro");
+        JButton button2 = new JButton("Registrar Servicos");
+        JButton button3 = new JButton("Cadastrar Funcionarios");
+        JButton button4 = new JButton("Cadastrar Cliente");
+        JButton button5 = new JButton("Perfil");
         
         // Set button sizes
-        button1.setPreferredSize(new Dimension(200, 50));
-        button2.setPreferredSize(new Dimension(200, 50));
-        button3.setPreferredSize(new Dimension(200, 50));
-        button4.setPreferredSize(new Dimension(200, 50));
+        button1.setPreferredSize(new Dimension(200, 40));
+        button2.setPreferredSize(new Dimension(200, 40));
+        button3.setPreferredSize(new Dimension(200, 40));
+        button4.setPreferredSize(new Dimension(200, 40));
+        button5.setPreferredSize(new Dimension(200, 40));
 
 
         // Add ActionListener to button1
@@ -79,6 +81,13 @@ public class Main {
             }
         });
 
+        button5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ShowPerfilCrud(frame);
+            }
+        });
+
 
         panel.add(titleLabel);
 
@@ -87,6 +96,7 @@ public class Main {
         panel.add(button2);
         panel.add(button3);
         panel.add(button4);
+        panel.add(button5);
         
         // Add the panel to the frame
         frame.getContentPane().add(panel, BorderLayout.CENTER);
