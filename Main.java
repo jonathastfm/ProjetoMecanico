@@ -1,6 +1,7 @@
 
 import javax.swing.*;
 
+import pages.AcessoriosCrud;
 import pages.CarrosCrud;
 import pages.FuncionariosCrud;
 import pages.PerfilCrud;
@@ -56,7 +57,7 @@ public class Main {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CarrosCrud(frame);
+                new AcessoriosCrud(frame);
             }
         });
 

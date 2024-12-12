@@ -6,6 +6,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import lib.Conecao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+
 public class ShowPerfilCrud {
     public ShowPerfilCrud(JFrame parent) {
         JFrame frame = new JFrame("Perfil CRUD");
@@ -23,13 +31,20 @@ public class ShowPerfilCrud {
     private void placeComponents(JPanel panel, JFrame parent, JFrame frame) {
         panel.setLayout(null);
 
-        Map<String, String> fields = Map.of(
-            "Nome Completo", "userText",
-            "E-mail", "emailText",
-            "Endereço", "addressText",
-            "Tipo de Pessoa", "personTypeText",
-            "CPF", "cpfText"
-        );
+        
+        Map<String, String> fields = new HashMap<>();
+
+        try (Connection connection = Conecao.getConnection()) {
+            String query = "SELECT nome, cpf FROM cliente";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                fields.put(resultSet.getString("field_name"), resultSet.getString("field_value"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         int y = 20;
         for (Map.Entry<String, String> entry : fields.entrySet()) {
