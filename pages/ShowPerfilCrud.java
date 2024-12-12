@@ -1,66 +1,66 @@
 package pages;
+
 import java.util.Map;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-import lib.Conecao;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
+import classes.Cliente;
 
 public class ShowPerfilCrud {
-    public ShowPerfilCrud(JFrame parent) {
+    public ShowPerfilCrud(JFrame parent, int id) {
         JFrame frame = new JFrame("Perfil CRUD");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 600);
 
         JPanel panel = new JPanel();
         frame.add(panel);
-        placeComponents(panel, parent, frame);
+        placeComponents(panel, parent, frame, id);
 
         frame.setVisible(true);
     }
 
 
-    private void placeComponents(JPanel panel, JFrame parent, JFrame frame) {
+    private void placeComponents(JPanel panel, JFrame parent, JFrame frame, int id) {
         panel.setLayout(null);
 
+        Map<String, Object> info = Cliente.loadFromDatabaseAsMap(id);
+
         
-        Map<String, String> fields = new HashMap<>();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        try (Connection connection = Conecao.getConnection()) {
-            String query = "SELECT nome, cpf FROM cliente";
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
+        JLabel userLabel = new JLabel("Nome Completo: " + info.get("nomeCompleto"));
+        panel.add(userLabel);
 
-            while (resultSet.next()) {
-                fields.put(resultSet.getString("field_name"), resultSet.getString("field_value"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        JLabel emailLabel = new JLabel("E-mail: " + info.get("email"));
+        panel.add(emailLabel);
 
-        int y = 20;
-        for (Map.Entry<String, String> entry : fields.entrySet()) {
-            String label = entry.getKey();
-            String text = entry.getValue();
+        JLabel addressLabel = new JLabel("Endereço: " + info.get("endereco"));
+        panel.add(addressLabel);
 
-            JLabel userLabel = new JLabel(label);
-            userLabel.setBounds(10, y, 80, 25);
-            panel.add(userLabel);
+        JLabel personTypeLabel = new JLabel("Tipo de Pessoa: " + info.get("tipoPessoa"));
+        panel.add(personTypeLabel);
 
-            JTextField userText = new JTextField(20);
-            userText.setBounds(150, y, 165, 25);
-            panel.add(userText);
+        JLabel cpfLabel = new JLabel("CPF: " + info.get("cpf"));
+        panel.add(cpfLabel);
 
-            y += 30;
-        }
+        JLabel phone1Label = new JLabel("Telefone 1: " + info.get("telefone1"));
+        panel.add(phone1Label);
+
+        JLabel phone2Label = new JLabel("Telefone 2: " + info.get("telefone2"));
+        panel.add(phone2Label);
+
+        JLabel cnpjLabel = new JLabel("CNPJ: " + info.get("cnpj"));
+        panel.add(cnpjLabel);
+
+        JLabel contactLabel = new JLabel("Contato: " + info.get("contato"));
+        panel.add(contactLabel);
+
+        JLabel inscEstLabel = new JLabel("Inscrição Estadual: " + info.get("insest"));
+        panel.add(inscEstLabel);
+       
     }
 
 }

@@ -13,10 +13,10 @@ public class ConectionCrud {
     private final String user = "postgres";
     private final String password = "0512";
 
-    public Connection connect() {
+    public static Connection connect() {
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection(url, user, password);
+            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ProjetoMecanico", "postgres", "0512");
             System.out.println("Connected to the PostgreSQL server successfully.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());

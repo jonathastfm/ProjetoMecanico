@@ -6,6 +6,8 @@ package pages;
 import java.sql.*;  
 import javax.swing.*;
 
+import classes.Cliente;
+
 public class PerfilCrud {
     public PerfilCrud(JFrame parent) {
         JFrame frame = new JFrame("Perfil CRUD");
@@ -104,35 +106,45 @@ public class PerfilCrud {
 
         JButton saveButton = new JButton("Salvar");
         saveButton.setBounds(150, 300, 80, 25);
+        
+        
+
         saveButton.addActionListener(e -> {
-            String nome = userText.getText();
+            String nomeCompleto = userText.getText();
             String email = emailText.getText();
             String endereco = addressText.getText();
             String tipoPessoa = personTypeText.getText();
             String cpf = cpfText.getText();
-            String telefones = phoneText.getText();
+            String telefone1 = phoneText.getText();
             String cnpj = cnpjText.getText();
             String contato = contactText.getText();
             String inscricaoEstadual = insEstaText.getText();
 
-            try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ProjetoMecanico", "postgres", "0512")) {
-            String sql = "INSERT INTO Cliente (nomecompleto, email, endereco, tipo_de_pessoa, cpf, telefone1, cnpj, contato, insesta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, nome);
-                pstmt.setString(2, email);
-                pstmt.setString(3, endereco);
-                pstmt.setString(4, tipoPessoa);
-                pstmt.setString(5, cpf);
-                pstmt.setString(6, telefones);
-                pstmt.setString(7, cnpj);
-                pstmt.setString(8, contato);
-                pstmt.setString(9, inscricaoEstadual);
-                pstmt.executeUpdate();
-                JOptionPane.showMessageDialog(frame, "Dados salvos com sucesso!");
+            Cliente cliente = new Cliente(nomeCompleto, email, endereco, tipoPessoa);
+
+            if (tipoPessoa.equals("fisica")) {
+            cliente.inicializarPessoaFisica(cpf, telefone1, null);
+            } else if (tipoPessoa.equals("juridica")) {
+            cliente.inicializarPessoaJuridica(cnpj, contato, inscricaoEstadual);
             }
+
+            try (Connection conn = ConectionCrud.connect()) {
+                String sql = "INSERT INTO Cliente (nomecompleto, email, endereco, tipo_de_pessoa, cpf, telefone1, cnpj, contato, insesta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setString(1, cliente.getNomeCompleto());
+                    pstmt.setString(2, cliente.getEmail());
+                    pstmt.setString(3, cliente.getEndereco());
+                    pstmt.setString(4, cliente.getTipoPessoa());
+                    pstmt.setString(5, cliente.getCpf());
+                    pstmt.setString(6, cliente.getTelefone1());
+                    pstmt.setString(7, cliente.getCnpj());
+                    pstmt.setString(8, cliente.getContato());
+                    pstmt.setString(9, cliente.getInsEsta());
+                    pstmt.executeUpdate();
+                    JOptionPane.showMessageDialog(frame, "Dados salvos com sucesso!");
+                }
             } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(frame, "Erro ao salvar os dados: " + ex.getMessage());
+                JOptionPane.showMessageDialog(frame, "Erro ao salvar os dados: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
 
