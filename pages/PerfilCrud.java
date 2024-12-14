@@ -9,19 +9,19 @@ import javax.swing.*;
 import classes.Cliente;
 
 public class PerfilCrud {
-    public PerfilCrud(JFrame parent) {
+    public PerfilCrud(JFrame parent, int id) {
         JFrame frame = new JFrame("Perfil CRUD");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 600);
 
         JPanel panel = new JPanel();
         frame.add(panel);
-        placeComponents(panel, parent, frame);
+        placeComponents(panel, parent, frame, id);
 
         frame.setVisible(true);
     }
 
-    private void placeComponents(JPanel panel, JFrame parent, JFrame frame) {
+    private void placeComponents(JPanel panel, JFrame parent, JFrame frame, int id) {
         panel.setLayout(null);
 
         JLabel userLabel = new JLabel("Nome Completo:");
@@ -96,6 +96,14 @@ public class PerfilCrud {
         insEstaText.setBounds(150, 260, 165, 25);
         panel.add(insEstaText);
 
+        JButton ShowPerfilButton = new JButton("Ver CLiente Atual");
+        ShowPerfilButton.setBounds(10, 330, 160, 25);
+        ShowPerfilButton.addActionListener(e -> {
+            
+            new ShowPerfilCrud(parent, id);
+            frame.dispose();
+        });
+
         JButton backButton = new JButton("Voltar");
         backButton.setBounds(10, 300, 80, 25);
         backButton.addActionListener(e -> {
@@ -147,6 +155,8 @@ public class PerfilCrud {
                 JOptionPane.showMessageDialog(frame, "Erro ao salvar os dados: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
+
+        panel.add(ShowPerfilButton);
 
         panel.add(saveButton);
 

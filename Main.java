@@ -8,6 +8,7 @@ import pages.FuncionariosCrud;
 import pages.PerfilCrud;
 import pages.ServicosCrud;
 import pages.ShowPerfilCrud;
+import pages.ShowCarrosCrud;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -42,7 +43,7 @@ public class Main {
 
         // Fetch client names from the database
         java.util.List<String> clientNames = new java.util.ArrayList<>();
-        final int[] idAtual = {-1}; // Use an array to hold the idAtual value
+        final int[] idAtual = {3}; // Use an array to hold the idAtual value
         
         try(Connection conn = ConectionCrud.connect()){
             String query = "SELECT idCliente, nomeCompleto FROM cliente";
@@ -86,7 +87,7 @@ public class Main {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CarrosCrud(frame);
+                new ShowCarrosCrud(frame, idAtual[0]);
             }
         });
 
@@ -107,7 +108,7 @@ public class Main {
         button4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PerfilCrud(frame);
+                new PerfilCrud(frame, idAtual[0]);
             }
         });
 

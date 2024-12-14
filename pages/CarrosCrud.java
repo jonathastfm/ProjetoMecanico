@@ -3,6 +3,9 @@ package pages;
 
 import javax.swing.*;
 
+import java.awt.FlowLayout;
+
+
 public class CarrosCrud {
     public CarrosCrud(JFrame parent) {
         JFrame frame = new JFrame("Carros CRUD");
@@ -17,31 +20,76 @@ public class CarrosCrud {
     }
 
     private void placeComponents(JPanel panel, JFrame parent, JFrame frame) {
-        panel.setLayout(null);
 
-        JLabel userLabel = new JLabel("ID");
-        userLabel.setBounds(10, 20, 80, 25);
-        panel.add(userLabel);
+        
+        panel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
-        JTextField userText = new JTextField(20);
-        userText.setBounds(100, 20, 165, 25);
-        panel.add(userText);
+        panel.add(new JLabel("Nome"));
+        JTextField nomeField = new JTextField(30);
+        nomeField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        panel.add(nomeField);
 
-        JLabel nameLabel = new JLabel("Nome");
-        nameLabel.setBounds(10, 50, 80, 25);
-        panel.add(nameLabel);
+        panel.add(new JLabel("Placa"));
+        JTextField placaField = new JTextField(30);
+        placaField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        panel.add(placaField);
 
-        JTextField nameText = new JTextField(20);
-        nameText.setBounds(100, 50, 165, 25);
-        panel.add(nameText);
+        panel.add(new JLabel("Número de Patrimônio"));
+        JTextField patrimonioField = new JTextField(20);
+        patrimonioField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        panel.add(patrimonioField);
+
+        panel.add(new JLabel("Quilometragem"));
+        JTextField quilometragemField = new JTextField(20);
+        quilometragemField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        panel.add(quilometragemField);
+
+        panel.add(new JLabel("Data de Entrada"));
+        JTextField dataEntradaField = new JTextField(20);
+        dataEntradaField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        panel.add(dataEntradaField);
+
+        panel.add(new JLabel("Ano de Fabricação"));
+        JTextField anoFabricacaoField = new JTextField(20);
+        anoFabricacaoField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        panel.add(anoFabricacaoField);
+
+        panel.add(new JLabel("Ano do Modelo"));
+        JTextField anoModeloField = new JTextField(24);
+        anoModeloField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        panel.add(anoModeloField);
+
+        panel.add(new JLabel("Chassi"));
+        JTextField chassiField = new JTextField(27);
+        chassiField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        panel.add(chassiField);
+
+        panel.add(new JLabel("Modelo"));
+        JComboBox<String> modeloComboBox = new JComboBox<>(new String[]{"Modelo A", "Modelo B", "Modelo C"});
+        modeloComboBox.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        panel.add(modeloComboBox);
+
+        
 
         JButton backButton = new JButton("Voltar para o Menu");
-        backButton.setBounds(10, 80, 200, 25);
         backButton.addActionListener(e -> {
             frame.dispose();
             parent.setVisible(true);
         });
+        backButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        JButton addMarcaModeloButton = new JButton("Adicionar Marca/Modelo");
+        addMarcaModeloButton.addActionListener(e -> {
+            new MarcaModeloCrud(frame);
+            frame.setVisible(false);
+        });
+        panel.add(addMarcaModeloButton);
+        
+
+        JButton saveButton = new JButton("Salvar");
+        panel.add(saveButton);
         panel.add(backButton);
+
     }
 }
 
